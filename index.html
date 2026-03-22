@@ -1,59 +1,357 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="assets/css/normalize.css" />
-    <title>DESARROLLO DEL CRISTAL</title>
-  </head>
-  <body>
-    <div class="header">
-      <h1>DESARROLLO DEL CRISTAL</h1>
-      <p>Aprovecha tu espacio sin perder las vistas...</p>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Desarrollo del Cristal - Cortinas de cristal plegables, barandas y pantallas protectoras en Chile. Cotizacion inmediata.">
+  <title>Desarrollo del Cristal | Soluciones en Vidrio y Cristal</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --accent: #38bdf8;
+      --dark: #0c1a2e;
+      --dark2: #0f2640;
+      --card: #102035;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: #1e3a5f;
+      --glass: rgba(255,255,255,0.06);
+      --radius: 14px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--dark); color: var(--text); line-height: 1.7; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(12,26,46,0.92); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .6rem;
+      text-decoration: none; font-weight: 800; font-size: 1.15rem;
+      color: var(--text);
+    }
+    .nav-logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--primary); color: #fff !important; padding: .5rem 1.3rem;
+      border-radius: 50px; font-weight: 600 !important; transition: background .2s, transform .2s !important;
+    }
+    .nav-cta:hover { background: var(--primary-dark) !important; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('assets/css/img/TORRES UNPLSH.jpg') center/cover no-repeat;
+      filter: brightness(.35) saturate(.8);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(12,26,46,.5) 0%, rgba(12,26,46,.85) 100%);
+    }
+    .hero-content { position: relative; max-width: 780px; }
+    .hero-badge {
+      display: inline-block; background: rgba(14,165,233,.18); border: 1px solid rgba(14,165,233,.45);
+      color: var(--accent); padding: .4rem 1.1rem; border-radius: 50px;
+      font-size: .82rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.2rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,.5);
+    }
+    .hero h1 span { color: var(--primary); }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 2.5rem; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .9rem 2.2rem; border-radius: 50px; font-weight: 700;
+      font-size: .95rem; text-decoration: none; transition: all .3s; border: none; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 20px rgba(14,165,233,.4); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,233,.5); }
+    .btn-outline { background: transparent; color: var(--text); border: 2px solid rgba(255,255,255,.25); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+
+    /* STATS */
+    .stats {
+      background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .stats-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2.2rem; font-weight: 900; color: var(--primary); line-height: 1; }
+    .stat-lbl { font-size: .82rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: .25rem; }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { color: var(--primary); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: .6rem; }
+    .section-title { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; }
+    .section-title span { color: var(--primary); }
+    .section-sub { color: var(--text-muted); max-width: 520px; margin-bottom: 3rem; }
+
+    /* PRODUCTOS */
+    #productos { background: var(--dark); }
+    .productos-grid { display: flex; flex-direction: column; gap: 5rem; }
+    .producto-item { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .producto-item.reverse { direction: rtl; }
+    .producto-item.reverse > * { direction: ltr; }
+    .producto-img {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      position: relative;
+    }
+    .producto-img img { width: 100%; height: 320px; object-fit: cover; display: block; transition: transform .4s; }
+    .producto-img:hover img { transform: scale(1.04); }
+    .producto-img::after {
+      content: ''; position: absolute; inset: 0;
+      border: 1px solid rgba(14,165,233,.2); border-radius: var(--radius); pointer-events: none;
+    }
+    .producto-info { }
+    .producto-tag {
+      display: inline-block; background: rgba(14,165,233,.12); border: 1px solid rgba(14,165,233,.3);
+      color: var(--accent); padding: .25rem .8rem; border-radius: 50px;
+      font-size: .75rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 1rem;
+    }
+    .producto-info h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 800; margin-bottom: .75rem; line-height: 1.2; }
+    .producto-info p { color: var(--text-muted); font-size: .97rem; margin-bottom: 1.5rem; line-height: 1.8; }
+    .producto-features { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.75rem; }
+    .feature-item { display: flex; align-items: center; gap: .6rem; color: var(--text-muted); font-size: .88rem; }
+    .feature-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+
+    /* POR QUE NOSOTROS */
+    #porque { background: var(--dark2); }
+    .porque-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .porque-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.75rem; transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .porque-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(14,165,233,.15); border-color: var(--primary); }
+    .porque-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .porque-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+    .porque-card p { color: var(--text-muted); font-size: .88rem; line-height: 1.7; }
+
+    /* CONTACTO */
+    #contacto { background: var(--dark); }
+    .contacto-card {
+      background: linear-gradient(135deg, var(--dark2), var(--card));
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 3.5rem; text-align: center; max-width: 680px; margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    .contacto-card h3 { font-size: 2rem; font-weight: 800; margin-bottom: .75rem; }
+    .contacto-card p { color: var(--text-muted); margin-bottom: 2rem; }
+    .contacto-info { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+    .contacto-item {
+      display: flex; align-items: center; gap: .5rem;
+      color: var(--text-muted); font-size: .9rem; text-decoration: none; transition: color .2s;
+    }
+    .contacto-item:hover { color: var(--primary); }
+    .c-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark2); border-top: 1px solid var(--border);
+      padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: .82rem;
+    }
+    footer span { color: var(--primary); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .producto-item, .producto-item.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+      .nav-links { display: none; }
+      .stats-inner { gap: 1.5rem; }
+      .contacto-card { padding: 2rem; }
+    }
+
+    .fade-in { opacity: 0; transform: translateY(25px); transition: opacity .6s, transform .6s; }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <span>&#9670;</span> Desarrollo del Cristal
+    </a>
+    <ul class="nav-links">
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#porque">Por que elegirnos</a></li>
+      <li><a href="#contacto" class="nav-cta">Cotizar ahora</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content fade-in">
+      <div class="hero-badge">&#10022; Santiago, Chile</div>
+      <h1>Aprovecha tu espacio<br>sin perder <span>las vistas</span></h1>
+      <p>Soluciones premium en cristal templado para hogares y empresas. Calidad europea, instalacion profesional y garantia comprobada.</p>
+      <div class="hero-cta">
+        <a href="#contacto" class="btn btn-primary">Cotizar ahora</a>
+        <a href="#productos" class="btn btn-outline">Ver productos</a>
+      </div>
     </div>
-    
-      <table class="servicios">        
-        <div>
-          <tr>
-            <td> <img src="assets/css/img/TORRES UNPLSH.jpg"
-                alt="producto 1"/>
-            </td>
-            <td>
-              <h1>CORTINAS DE CRISTAL PLEGABLES</h1>
-              <h2>Cotizacion Inmediata</h2>
-              <p>Disfruta de tus espacios durante todo el años con nuestro sistema de cortinas plegables de cristal templado. Fabricados bajo estrictos estándares de calidad y con la mejor tecnología europea.</p>
-            </td>
-          </tr>
-          <tr>
-            <td> <img src="assets/css/img/Screenshot_20211112_083935.jpg"
-                alt="producto 2"/>
-            </td>
-            <td>
-              <h1>BARANDAS DE CRISTAL TEMPLADO</h1>
-              <h2>Cotizacion Inmediata</h2>
-              <p>Para diseñar espacios modernos y elegantes, nuestras barandas de cristal son la mejor opción. Trabajamos con vidrios de seguridad, especialmente desarrollados para el cuidado de tu familia.</p>
-            </td>
-          </tr>
-          <tr>
-            <td> <img src="assets/css/img/Screenshot_20211111_213802.jpg"
-                alt="producto 3"/>
-            </td>
-            <td>
-              <h1>PANTALLAS PROTECTORAS DE CRISTAL</h1>
-              <h2>Cotizacion Inmediata</h2>
-              <p>Las pantallas protectoras de vidrio actúan como una barrera física efectiva que ayuda a reducir las posibilidades de contagio frente a agentes patógenos que se propagan por vía aérea como el SARS-CoV-2 (COVID-19), aumentando la seguridad de clientes y trabajadores en los distintos espacios de interacción.</p>
-            </td>
-          </tr>
-                </table>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="stat"><div class="stat-num">+500</div><div class="stat-lbl">Proyectos realizados</div></div>
+      <div class="stat"><div class="stat-num">10+</div><div class="stat-lbl">Anos de experiencia</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Cristal templado certificado</div></div>
+      <div class="stat"><div class="stat-num">24h</div><div class="stat-lbl">Respuesta de cotizacion</div></div>
+    </div>
+  </div>
+
+  <!-- PRODUCTOS -->
+  <section id="productos">
+    <div class="container">
+      <div class="section-label fade-in">Nuestros productos</div>
+      <h2 class="section-title fade-in">Soluciones en <span>Cristal Templado</span></h2>
+      <p class="section-sub fade-in">Fabricados con tecnologia europea bajo los mas estrictos estandares de calidad y seguridad.</p>
+
+      <div class="productos-grid">
+
+        <!-- Producto 1 -->
+        <div class="producto-item fade-in">
+          <div class="producto-img">
+            <img src="assets/css/img/TORRES UNPLSH.jpg" alt="Cortinas de cristal plegables">
+          </div>
+          <div class="producto-info">
+            <span class="producto-tag">Cotizacion inmediata</span>
+            <h3>Cortinas de Cristal Plegables</h3>
+            <p>Disfruta de tus espacios durante todo el ano con nuestro sistema de cortinas plegables de cristal templado. Fabricadas bajo estrictos estandares de calidad y con la mejor tecnologia europea.</p>
+            <div class="producto-features">
+              <div class="feature-item"><span class="feature-dot"></span>Cristal templado de seguridad</div>
+              <div class="feature-item"><span class="feature-dot"></span>Sistema plegable de alta durabilidad</div>
+              <div class="feature-item"><span class="feature-dot"></span>Instalacion profesional incluida</div>
+              <div class="feature-item"><span class="feature-dot"></span>Garantia de fabrica</div>
+            </div>
+            <a href="#contacto" class="btn btn-primary">Solicitar cotizacion</a>
+          </div>
         </div>
-    
-  </body>
-  <footer>
-    <div class="footer">
-     <h2>CONTÁCTANOS Y SOLICITA NUESTROS PRODUCTOS</h2>
-      <p> comunicate con nosotros a: juanjose@contacto.com</p>
+
+        <!-- Producto 2 -->
+        <div class="producto-item reverse fade-in">
+          <div class="producto-img">
+            <img src="assets/css/img/Screenshot_20211112_083935.jpg" alt="Barandas de cristal templado">
+          </div>
+          <div class="producto-info">
+            <span class="producto-tag">Cotizacion inmediata</span>
+            <h3>Barandas de Cristal Templado</h3>
+            <p>Para disenar espacios modernos y elegantes, nuestras barandas de cristal son la mejor opcion. Trabajamos con vidrios de seguridad, especialmente desarrollados para el cuidado de tu familia.</p>
+            <div class="producto-features">
+              <div class="feature-item"><span class="feature-dot"></span>Vidrio de seguridad certificado</div>
+              <div class="feature-item"><span class="feature-dot"></span>Diseno moderno y elegante</div>
+              <div class="feature-item"><span class="feature-dot"></span>Resistente a impactos</div>
+              <div class="feature-item"><span class="feature-dot"></span>Ideal para terrazas y escaleras</div>
+            </div>
+            <a href="#contacto" class="btn btn-primary">Solicitar cotizacion</a>
+          </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="producto-item fade-in">
+          <div class="producto-img">
+            <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Pantallas protectoras de cristal">
+          </div>
+          <div class="producto-info">
+            <span class="producto-tag">Cotizacion inmediata</span>
+            <h3>Pantallas Protectoras de Cristal</h3>
+            <p>Las pantallas protectoras de vidrio actuan como una barrera fisica efectiva para espacios comerciales y de atencion al publico. Aumentan la seguridad de clientes y trabajadores en los distintos espacios de interaccion.</p>
+            <div class="producto-features">
+              <div class="feature-item"><span class="feature-dot"></span>Barrera fisica de proteccion</div>
+              <div class="feature-item"><span class="feature-dot"></span>Ideal para oficinas y comercios</div>
+              <div class="feature-item"><span class="feature-dot"></span>Facil limpieza y mantencion</div>
+              <div class="feature-item"><span class="feature-dot"></span>Instalacion rapida</div>
+            </div>
+            <a href="#contacto" class="btn btn-primary">Solicitar cotizacion</a>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </section>
+
+  <!-- POR QUE NOSOTROS -->
+  <section id="porque">
+    <div class="container">
+      <div class="section-label fade-in">Nuestra diferencia</div>
+      <h2 class="section-title fade-in">Por que elegirnos</h2>
+      <div class="porque-grid">
+        <div class="porque-card fade-in">
+          <div class="porque-icon">&#127925;</div>
+          <h4>Tecnologia Europea</h4>
+          <p>Sistemas y materiales importados con los mas altos estandares de calidad y durabilidad.</p>
+        </div>
+        <div class="porque-card fade-in">
+          <div class="porque-icon">&#128272;</div>
+          <h4>Seguridad Certificada</h4>
+          <p>Cristal templado de seguridad que cumple con normativas internacionales de proteccion.</p>
+        </div>
+        <div class="porque-card fade-in">
+          <div class="porque-icon">&#9881;&#65039;</div>
+          <h4>Instalacion Profesional</h4>
+          <p>Equipo tecnico especializado con anos de experiencia en instalaciones residenciales y comerciales.</p>
+        </div>
+        <div class="porque-card fade-in">
+          <div class="porque-icon">&#128200;</div>
+          <h4>Cotizacion Rapida</h4>
+          <p>Respuesta en menos de 24 horas con presupuesto detallado y sin compromiso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contacto-card fade-in">
+        <div class="section-label" style="margin-bottom:.75rem;">Contacto</div>
+        <h3>Solicita tu Cotizacion</h3>
+        <p>Escribenos y te responderemos en menos de 24 horas con un presupuesto sin compromiso adaptado a tus necesidades.</p>
+        <a href="mailto:juanjose@contacto.com" class="btn btn-primary" style="font-size:1rem;">
+          &#9993; Enviar mensaje
+        </a>
+        <div class="contacto-info">
+          <a class="contacto-item" href="mailto:juanjose@contacto.com">
+            <span class="c-dot"></span> juanjose@contacto.com
+          </a>
+          <span class="contacto-item">
+            <span class="c-dot"></span> Santiago, Chile
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><span>Desarrollo del Cristal</span> &mdash; Soluciones premium en cristal templado &mdash; Santiago, Chile</p>
   </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
 </html>
