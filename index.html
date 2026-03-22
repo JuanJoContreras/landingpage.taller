@@ -1,447 +1,733 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ADC SPA - Arquitectura del Cristal. Cierres de cristal plegables, barandas, lucarnas y escaleras en Chile. Cotiza gratis hoy.">
-  <title>ADC SPA | Arquitectura del Cristal</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --blue: #1a6fa8;
-      --blue-dark: #0d5a8a;
-      --blue-light: #2196c8;
-      --green: #5cb85c;
-      --green-dark: #449d44;
-      --text: #333;
-      --text-light: #666;
-      --bg: #fff;
-      --bg2: #f5f7fa;
-      --border: #e0e6ed;
-      --navy: #0c2340;
-      --radius: 4px;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.75rem 2.5rem;
-      background: #fff;
-      box-shadow: 0 2px 12px rgba(0,0,0,.1);
-    }
-    .nav-logo { display: flex; align-items: center; gap: .5rem; text-decoration: none; }
-    .nav-logo-icon {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, var(--blue), var(--blue-light));
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 900; font-size: 1.1rem; letter-spacing: -1px;
-    }
-    .nav-logo-text { line-height: 1.1; }
-    .nav-logo-text strong { display: block; color: var(--blue); font-size: 1.3rem; font-weight: 900; }
-    .nav-logo-text span { font-size: .65rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
-    .nav-links { display: flex; gap: .25rem; list-style: none; }
-    .nav-links a {
-      color: var(--text); text-decoration: none; font-size: .88rem; font-weight: 600;
-      padding: .5rem 1rem; border-radius: var(--radius); transition: background .2s, color .2s;
-      text-transform: uppercase; letter-spacing: .5px;
-    }
-    .nav-links a:hover { background: var(--bg2); color: var(--blue); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh; position: relative; display: flex; align-items: center;
-      padding: 5rem 2.5rem 3rem;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: url('assets/css/img/Screenshot_20211111_213802.jpg') center/cover no-repeat;
-      filter: brightness(.55);
-    }
-    .hero-inner { position: relative; max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 420px; gap: 3rem; align-items: center; }
-    .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 1rem; text-shadow: 0 2px 10px rgba(0,0,0,.4); }
-    .hero-text p { font-size: 1.05rem; color: rgba(255,255,255,.9); max-width: 440px; }
-
-    /* FORM */
-    .hero-form {
-      background: rgba(255,255,255,.97); border-radius: 6px;
-      padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,.3);
-    }
-    .hero-form h3 { font-size: 1rem; color: var(--text-light); text-align: center; margin-bottom: 1.25rem; font-weight: 500; }
-    .form-group { margin-bottom: .85rem; }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: .75rem 1rem; border: 1px solid var(--border);
-      border-radius: var(--radius); font-size: .92rem; color: var(--text);
-      background: #fff; outline: none; transition: border-color .2s;
-      font-family: inherit;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue); }
-    .form-group textarea { resize: vertical; min-height: 90px; }
-    .btn-submit {
-      width: 100%; padding: .9rem; background: var(--green); color: #fff;
-      border: none; border-radius: var(--radius); font-size: .9rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background .2s;
-    }
-    .btn-submit:hover { background: var(--green-dark); }
-
-    /* STATS */
-    .stats { background: var(--bg); padding: 2.5rem 2rem; border-bottom: 1px solid var(--border); }
-    .stats-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1.5rem; }
-    .stat { text-align: center; }
-    .stat-num { font-size: 2rem; font-weight: 900; color: var(--navy); line-height: 1; }
-    .stat-lbl { font-size: .72rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; margin-top: .3rem; max-width: 120px; margin-left: auto; margin-right: auto; }
-    .stat-divider { width: 1px; background: var(--border); }
-
-    /* SECTION COMMONS */
-    .section-title-block { text-align: center; margin-bottom: 3rem; }
-    .section-title-block h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .6rem; }
-    .title-bar { width: 48px; height: 3px; background: var(--blue); margin: 0 auto; }
-
-    /* PRODUCTOS */
-    .producto-section { padding: 5rem 2rem; }
-    .producto-section:nth-child(even) { background: var(--bg2); }
-    .producto-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .producto-inner.reverse { }
-    .producto-img { border-radius: 6px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,.15); }
-    .producto-img img { width: 100%; height: 380px; object-fit: cover; display: block; }
-    .producto-info h3 { font-size: 1.4rem; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
-    .producto-info p { color: var(--text-light); font-size: .95rem; margin-bottom: 1.5rem; line-height: 1.8; }
-    .check-list { list-style: none; margin-bottom: 1.75rem; display: flex; flex-direction: column; gap: .6rem; }
-    .check-list li { display: flex; align-items: flex-start; gap: .6rem; color: var(--text-light); font-size: .9rem; line-height: 1.5; }
-    .check-icon { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--green); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: .7rem; flex-shrink: 0; margin-top: 2px; }
-    .btn-green {
-      display: inline-block; background: var(--green); color: #fff; padding: .75rem 2rem;
-      border-radius: var(--radius); font-weight: 700; font-size: .85rem;
-      text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
-      transition: background .2s; border: none; cursor: pointer;
-    }
-    .btn-green:hover { background: var(--green-dark); }
-
-    /* GALERIA */
-    #galeria { padding: 5rem 2rem; background: var(--bg); }
-    .galeria-grid { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .galeria-item { }
-    .galeria-item img { width: 100%; height: 260px; object-fit: cover; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,.12); display: block; margin-bottom: .75rem; }
-    .galeria-item p { font-size: .88rem; color: var(--blue); text-decoration: underline; text-align: center; }
-
-    /* CLIENTES */
-    #clientes { padding: 4rem 2rem; background: var(--bg2); }
-    .clientes-logos { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 3rem; }
-    .cliente-logo { display: flex; flex-direction: column; align-items: center; gap: .4rem; }
-    .cliente-logo .logo-placeholder {
-      height: 55px; padding: 0 1.5rem;
-      display: flex; align-items: center; justify-content: center;
-      background: #fff; border: 1px solid var(--border); border-radius: 4px;
-      font-size: .82rem; font-weight: 700; color: var(--text-light); text-align: center;
-      white-space: nowrap;
-    }
-
-    /* CTA BANNER */
-    .cta-banner {
-      position: relative; padding: 4rem 2rem; text-align: center; overflow: hidden;
-    }
-    .cta-banner-bg {
-      position: absolute; inset: 0;
-      background: url('assets/css/img/TORRES UNPLSH.jpg') center/cover no-repeat;
-      filter: brightness(.4);
-    }
-    .cta-banner-content { position: relative; }
-    .cta-banner h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: #fff; margin-bottom: 1.5rem; text-decoration: underline; }
-    .btn-outline-white {
-      display: inline-block; border: 2px solid #fff; color: #fff;
-      padding: .8rem 2.5rem; font-size: .95rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
-      transition: background .2s, color .2s;
-    }
-    .btn-outline-white:hover { background: #fff; color: var(--navy); }
-
-    /* CONTACTO INFO */
-    .contacto-info-section { background: var(--navy); padding: 4rem 2rem; }
-    .contacto-info-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
-    .contacto-col h4 { font-size: .95rem; font-weight: 800; color: #fff; margin-bottom: .75rem; }
-    .contacto-col p, .contacto-col li { color: rgba(255,255,255,.75); font-size: .88rem; margin-bottom: .4rem; }
-    .contacto-col ul { list-style: none; }
-    .contacto-col ul li::before { content: '&#10003; '; color: var(--green); }
-    .contacto-cta-text { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
-    .contacto-col a { color: rgba(255,255,255,.75); }
-
-    /* FOOTER */
-    footer { background: #0a1c2e; padding: 1.5rem 2rem; text-align: center; color: rgba(255,255,255,.5); font-size: .8rem; }
-    footer span { color: var(--blue-light); }
-
-    /* WHATSAPP */
-    .whatsapp-float {
-      position: fixed; bottom: 28px; right: 28px; z-index: 999;
-      width: 58px; height: 58px; background: #25D366; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,.3); text-decoration: none;
-      transition: transform .2s;
-    }
-    .whatsapp-float:hover { transform: scale(1.1); }
-    .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-form { max-width: 480px; margin: 0 auto; }
-      .producto-inner { grid-template-columns: 1fr; }
-      .producto-inner.reverse .producto-img { order: -1; }
-      .galeria-grid { grid-template-columns: 1fr; max-width: 400px; }
-      .contacto-info-inner { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .stat-divider { display: none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ADC SPA - Arquitectura del Cristal. Cierres de cristal plegables, barandas de cristal, lucarnas y escaleras en Chile. Tecnologia europea, 9 anos de garantia. Cotiza gratis hoy.">
+<meta name="keywords" content="cierres de cristal, cortinas de cristal plegables, barandas de cristal, lucarnas de cristal, cierres terraza, cierres quincho, cierres balcon, Santiago Chile, ADC SPA">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="ADC SPA | Arquitectura del Cristal - Cierres de Cristal Plegables">
+<meta property="og:description" content="Cierres de cristal plegables para terrazas, quinchos y balcones. Mas de 3000 proyectos realizados. Certificacion Europea. Cotiza gratis.">
+<meta property="og:type" content="website">
+<title>ADC SPA | Cierres de Cristal Plegables - Barandas y Lucarnas Chile</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1a6fa8;--blue-dark:#0d5a8a;--blue-light:#2196c8;
+  --green:#5cb85c;--green-dark:#449d44;
+  --text:#333;--text-light:#666;
+  --bg:#fff;--bg2:#f5f7fa;--border:#e0e6ed;
+  --navy:#0c2340;--gold:#c9a84c;
+  --radius:4px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.75rem 2.5rem;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.nav-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.nav-logo-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--blue),var(--blue-light));border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1.1rem;letter-spacing:-1px}
+.nav-logo-text{line-height:1.1}
+.nav-logo-text strong{display:block;color:var(--blue);font-size:1.3rem;font-weight:900}
+.nav-logo-text span{font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:1px}
+.nav-links{display:flex;gap:.25rem;list-style:none}
+.nav-links a{color:var(--text);text-decoration:none;font-size:.88rem;font-weight:600;padding:.5rem 1rem;border-radius:var(--radius);transition:background .2s,color .2s;text-transform:uppercase;letter-spacing:.5px}
+.nav-links a:hover{background:var(--bg2);color:var(--blue)}
+.nav-cta{background:var(--green);color:#fff!important;border-radius:var(--radius);padding:.5rem 1.2rem!important}
+.nav-cta:hover{background:var(--green-dark)!important;color:#fff!important}
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;padding:5rem 2.5rem 3rem}
+.hero-bg{position:absolute;inset:0;background:url('assets/css/img/Screenshot_20211111_213802.jpg') center/cover no-repeat;filter:brightness(.55)}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 440px;gap:3rem;align-items:center}
+.hero-text h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:1rem;text-shadow:0 2px 10px rgba(0,0,0,.4)}
+.hero-text p{font-size:1.05rem;color:rgba(255,255,255,.9);max-width:440px;margin-bottom:1.5rem}
+.btn-hero{display:inline-block;background:var(--green);color:#fff;padding:.85rem 2.2rem;border-radius:30px;font-weight:700;font-size:1rem;text-decoration:none;transition:background .2s,transform .2s}
+.btn-hero:hover{background:var(--green-dark);transform:translateY(-2px)}
+/* FORM */
+.hero-form{background:rgba(255,255,255,.97);border-radius:6px;padding:2rem;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.hero-form h3{font-size:1rem;color:var(--text-light);text-align:center;margin-bottom:1.25rem;font-weight:500}
+.form-group{margin-bottom:.85rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.75rem 1rem;border:1px solid var(--border);border-radius:var(--radius);font-size:.92rem;color:var(--text);background:#fff;outline:none;transition:border-color .2s;font-family:inherit}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue)}
+.form-group textarea{resize:vertical;min-height:80px}
+.btn-submit{width:100%;padding:.9rem;background:var(--green);color:#fff;border:none;border-radius:var(--radius);font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:background .2s}
+.btn-submit:hover{background:var(--green-dark)}
+/* STATS */
+.stats{background:var(--bg);padding:2.5rem 2rem;border-bottom:1px solid var(--border)}
+.stats-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1.5rem}
+.stat{text-align:center}
+.stat-num{font-size:2rem;font-weight:900;color:var(--navy);line-height:1}
+.stat-lbl{font-size:.72rem;color:var(--text-light);text-transform:uppercase;letter-spacing:1px;margin-top:.3rem;max-width:120px;margin-left:auto;margin-right:auto}
+.stat-divider{width:1px;background:var(--border)}
+/* SECTION COMMONS */
+.section-title-block{text-align:center;margin-bottom:3rem}
+.section-title-block h2{font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:.6rem}
+.title-bar{width:48px;height:3px;background:var(--blue);margin:0 auto}
+/* POR QUE ELEGIRNOS (Panorama) */
+.por-que{padding:5rem 2rem;background:var(--bg2)}
+.beneficios-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.beneficio-card{background:#fff;border-radius:8px;padding:2rem 1.5rem;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;border-top:3px solid transparent}
+.beneficio-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.12);border-top-color:var(--blue)}
+.beneficio-icon{width:60px;height:60px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;background:var(--bg2);border-radius:50%}
+.beneficio-icon svg{width:32px;height:32px;stroke:var(--blue);fill:none;stroke-width:1.5}
+.beneficio-card h4{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.5rem}
+.beneficio-card p{font-size:.85rem;color:var(--text-light);line-height:1.6}
+/* DIFERENCIADORES (Vista Libre) */
+.diferenciadores{padding:5rem 2rem;background:var(--navy)}
+.diferenciadores .section-title-block h2{color:#fff}
+.diferenciadores .title-bar{background:var(--gold)}
+.dif-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);gap:1.5rem}
+.dif-item{text-align:center;padding:1.5rem .75rem;border-right:1px solid rgba(255,255,255,.1)}
+.dif-item:last-child{border-right:none}
+.dif-icon{width:56px;height:56px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center}
+.dif-icon svg{width:44px;height:44px;stroke:var(--gold);fill:none;stroke-width:1.2}
+.dif-item h4{font-size:.8rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem}
+.dif-item p{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.5}
+/* PRODUCTOS */
+.producto-section{padding:5rem 2rem}
+.producto-section:nth-child(even){background:var(--bg2)}
+.producto-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.producto-img{border-radius:6px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.15)}
+.producto-img img{width:100%;height:380px;object-fit:cover;display:block}
+.producto-info h3{font-size:1.4rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.producto-info p{color:var(--text-light);font-size:.95rem;margin-bottom:1.5rem;line-height:1.8}
+.check-list{list-style:none;margin-bottom:1.75rem;display:flex;flex-direction:column;gap:.6rem}
+.check-list li{display:flex;align-items:flex-start;gap:.6rem;color:var(--text-light);font-size:.9rem;line-height:1.5}
+.check-icon{width:20px;height:20px;border-radius:50%;border:2px solid var(--green);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;margin-top:2px}
+.btn-green{display:inline-block;background:var(--green);color:#fff;padding:.75rem 2rem;border-radius:var(--radius);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;text-decoration:none;transition:background .2s;border:none;cursor:pointer}
+.btn-green:hover{background:var(--green-dark)}
+/* NOSOTROS / POR QUE TEXTO (Panorama) */
+.nosotros-section{padding:5rem 2rem;background:var(--bg)}
+.nosotros-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.nosotros-text h2{font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:900;color:var(--navy);margin-bottom:1rem;line-height:1.2}
+.nosotros-text h2 strong{color:var(--blue)}
+.nosotros-text p{color:var(--text-light);font-size:.95rem;line-height:1.8;margin-bottom:1rem}
+.nosotros-img img{width:100%;height:400px;object-fit:cover;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.15)}
+/* COLORES (Vista Libre) */
+.colores-section{padding:4rem 2rem;background:var(--bg2)}
+.colores-grid{max-width:900px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:2.5rem}
+.color-item{display:flex;flex-direction:column;align-items:center;gap:.75rem}
+.color-circle{width:80px;height:80px;border-radius:50%;box-shadow:0 4px 16px rgba(0,0,0,.2);border:2px solid rgba(255,255,255,.5)}
+.color-item span{font-size:.8rem;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px}
+/* FAQ (Panorama) */
+.faq-section{padding:5rem 2rem;background:var(--bg)}
+.faq-inner{max-width:800px;margin:0 auto}
+.faq-item{border:1px solid var(--border);border-radius:6px;margin-bottom:.75rem;overflow:hidden}
+.faq-question{width:100%;text-align:left;padding:1.1rem 1.5rem;background:#fff;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:.95rem;font-weight:600;color:var(--navy);transition:background .2s}
+.faq-question:hover{background:var(--bg2)}
+.faq-question.active{background:var(--bg2);color:var(--blue)}
+.faq-arrow{font-size:1.2rem;transition:transform .3s;color:var(--blue)}
+.faq-question.active .faq-arrow{transform:rotate(90deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s}
+.faq-answer.open{max-height:300px;padding:0 1.5rem 1.1rem}
+.faq-answer p{font-size:.9rem;color:var(--text-light);line-height:1.7}
+/* GALERIA */
+#galeria{padding:5rem 2rem;background:var(--bg)}
+.galeria-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.galeria-item img{width:100%;height:280px;object-fit:cover;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.12);display:block;margin-bottom:.75rem}
+.galeria-item p{font-size:.88rem;color:var(--blue);text-decoration:underline;text-align:center}
+/* CLIENTES */
+#clientes{padding:4rem 2rem;background:var(--bg2)}
+.clientes-logos{max-width:1000px;margin:0 auto;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:2rem}
+.logo-placeholder{height:55px;padding:0 1.5rem;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:4px;font-size:.82rem;font-weight:700;color:var(--text-light);text-align:center;white-space:nowrap;transition:box-shadow .2s}
+.logo-placeholder:hover{box-shadow:0 4px 16px rgba(26,111,168,.15)}
+/* CTA BANNER */
+.cta-banner{position:relative;padding:4rem 2rem;text-align:center;overflow:hidden}
+.cta-banner-bg{position:absolute;inset:0;background:url('assets/css/img/TORRES UNPLSH.jpg') center/cover no-repeat;filter:brightness(.4)}
+.cta-banner-content{position:relative}
+.cta-banner h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:#fff;margin-bottom:1.5rem;text-decoration:underline}
+.btn-outline-white{display:inline-block;border:2px solid #fff;color:#fff;padding:.8rem 2.5rem;font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;text-decoration:none;transition:background .2s,color .2s}
+.btn-outline-white:hover{background:#fff;color:var(--navy)}
+/* CONTACTO (Vista Libre estilo form + ADC info) */
+.contacto-section{padding:5rem 2rem;background:var(--bg)}
+.contacto-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contacto-form-wrap h2{font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:.4rem}
+.contacto-form-wrap p.subtitle{color:var(--text-light);margin-bottom:1.5rem;font-size:.93rem}
+.contact-form{background:var(--bg2);border-radius:8px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.contact-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem}
+.contact-form .form-group{margin-bottom:.85rem}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;padding:.75rem 1rem;border:1px solid var(--border);border-radius:var(--radius);font-size:.9rem;color:var(--text);background:#fff;outline:none;transition:border-color .2s;font-family:inherit}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--blue)}
+.contact-form textarea{resize:vertical;min-height:100px}
+.contact-form .btn-submit{width:100%;padding:.9rem;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:background .2s}
+.contact-form .btn-submit:hover{background:var(--blue-dark)}
+.contacto-info{padding-top:.5rem}
+.contacto-info h3{font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:1.5rem}
+.contacto-info-card{background:var(--navy);border-radius:8px;padding:2rem;color:#fff;margin-bottom:1.5rem}
+.contacto-info-card p{color:rgba(255,255,255,.8);font-size:.9rem;margin-bottom:.5rem;line-height:1.7}
+.contacto-info-card .big-phone{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:.25rem}
+.contacto-info-card a{color:rgba(255,255,255,.8);text-decoration:none}
+.contacto-info-card a:hover{color:#fff}
+.features-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.features-list li{display:flex;align-items:center;gap:.6rem;color:rgba(255,255,255,.8);font-size:.88rem}
+.features-list li::before{content:"✓";color:var(--green);font-weight:900;font-size:1rem;flex-shrink:0}
+/* FOOTER MULTICOLUMNA (Vista Libre + Panorama) */
+footer{background:#0a1c2e;padding:3rem 2rem 1.5rem}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:1.5rem}
+.footer-brand strong{display:block;color:#fff;font-size:1.2rem;font-weight:900;margin-bottom:.4rem}
+.footer-brand span{display:block;font-size:.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem}
+.footer-brand p{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.7;max-width:280px}
+.footer-col h5{font-size:.85rem;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--blue)}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.4rem}
+.footer-col ul li a{font-size:.82rem;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.footer-col ul li a:hover{color:var(--blue-light)}
+.footer-col .contact-item{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.6rem}
+.footer-col .contact-item span{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.5}
+.footer-bottom{text-align:center;font-size:.78rem;color:rgba(255,255,255,.35)}
+.footer-bottom a{color:rgba(255,255,255,.35);text-decoration:none}
+/* WHATSAPP */
+.whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:999;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);text-decoration:none;transition:transform .2s}
+.whatsapp-float:hover{transform:scale(1.1)}
+.whatsapp-float svg{width:32px;height:32px;fill:#fff}
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .dif-grid{grid-template-columns:repeat(3,1fr)}
+  .dif-item:nth-child(3){border-right:none}
+  .beneficios-grid{grid-template-columns:repeat(2,1fr)}
+  .nosotros-inner{grid-template-columns:1fr}
+  .contacto-inner{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-form{max-width:480px;margin:0 auto}
+  .producto-inner{grid-template-columns:1fr}
+  .galeria-grid{grid-template-columns:1fr;max-width:400px}
+  .footer-inner{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .stat-divider{display:none}
+  .dif-grid{grid-template-columns:repeat(2,1fr)}
+  .beneficios-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .contact-form .form-row{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">ADC</div>
+    <div class="nav-logo-text">
+      <strong>ADC</strong>
+      <span>Arquitectura del Cristal</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#cierres">Cortinas de Cristal</a></li>
+    <li><a href="#barandas">Barandas de Cristal</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#contacto" class="nav-cta">Cotizar</a></li>
+  </ul>
+</nav>
 
-  <!-- NAV -->
-  <nav>
-    <a class="nav-logo" href="#">
-      <div class="nav-logo-icon">ADC</div>
-      <div class="nav-logo-text">
-        <strong>ADC</strong>
-        <span>Arquitectura del Cristal</span>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>CIERRES DE CRISTAL,<br>BARANDAS, LUCARNAS<br>Y ESCALERAS.</h1>
+      <p>Transforma tu terraza o quincho con nuestros cierres de cristal sin mantenciones. Tecnologia europea. Garantia de 9 anos.</p>
+      <a href="#cierres" class="btn-hero">Conoce nuestros productos</a>
+    </div>
+    <div class="hero-form">
+      <h3>Completa el formulario y te contactamos</h3>
+      <div class="form-row">
+        <div class="form-group"><input type="text" placeholder="Nombre *"></div>
+        <div class="form-group"><input type="text" placeholder="Apellidos *"></div>
       </div>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#cierres">Cortinas de Cristal</a></li>
-      <li><a href="#barandas">Barandas de Cristal</a></li>
-      <li><a href="#galeria">Galeria</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-  </nav>
+      <div class="form-group"><input type="email" placeholder="Correo electronico *"></div>
+      <div class="form-group"><input type="tel" placeholder="Telefono *"></div>
+      <div class="form-group">
+        <select>
+          <option value="">-- Seleccione un producto --</option>
+          <option>Cierres de Cristal Plegables</option>
+          <option>Barandas de Cristal</option>
+          <option>Lucarnas (Techos) de Cristal</option>
+          <option>Escaleras de Cristal</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select>
+          <option value="">Como se entero de nosotros?</option>
+          <option>Google / Buscador</option>
+          <option>Redes Sociales</option>
+          <option>Recomendacion</option>
+          <option>Publicidad</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group"><textarea placeholder="Mensaje (opcional)"></textarea></div>
+      <button class="btn-submit" onclick="alert('Gracias! Te contactaremos pronto.')">SOLICITAR COTIZACION</button>
+    </div>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-inner">
-      <div class="hero-text">
-        <h1>CIERRES DE CRISTAL,<br>BARANDAS, LUCARNAS<br>Y ESCALERAS.</h1>
-        <p>Transforma tu terraza o quincho con nuestros cierres de cristal sin mantenciones. &iexcl;Cotiza gratis hoy!</p>
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">+40.000 mt2</div>
+      <div class="stat-lbl">Cierres de Cristal Plegables</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">+15.000 mt</div>
+      <div class="stat-lbl">Barandas de Cristal Instaladas</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">+3.000</div>
+      <div class="stat-lbl">Proyectos Realizados</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">9 Anos</div>
+      <div class="stat-lbl">Garantia en Perfileria y Sistema</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">Cert.</div>
+      <div class="stat-lbl">Certificacion Europea</div>
+    </div>
+  </div>
+</div>
+
+<!-- POR QUE ELEGIRNOS (inspirado Panorama) -->
+<section class="por-que">
+  <div class="section-title-block">
+    <h2>Por que elegirnos</h2>
+    <div class="title-bar"></div>
+    <p style="color:var(--text-light);margin-top:.75rem;font-size:.95rem">Descubre lo que nos hace unicos en el mercado</p>
+  </div>
+  <div class="beneficios-grid">
+    <div class="beneficio-card">
+      <div class="beneficio-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
       </div>
-      <div class="hero-form">
-        <h3>Completa el formulario y te contactamos</h3>
-        <div class="form-group"><input type="text" placeholder="Nombre completo"></div>
-        <div class="form-group"><input type="email" placeholder="Email"></div>
-        <div class="form-group"><input type="tel" placeholder="Telefono"></div>
+      <h4>Vision Panoramica</h4>
+      <p>Sin perfiles verticales que interrumpan la vista. Transparencia total de tu terraza o quincho.</p>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </div>
+      <h4>Confort Termico</h4>
+      <p>Reduccion del calor en verano y del frio en invierno. Ahorro en climatizacion durante todo el ano.</p>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h4>Seguridad Real</h4>
+      <p>Cristal templado certificado. Sistema con triple seguridad estructural y diseno anti-descuelgue.</p>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h4>Bajo Mantenimiento</h4>
+      <p>Deslizamiento sin rodamientos en Teflon. Sin ajustes ni mantenciones programadas. Disfruta sin complicaciones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS / DESCRIPCION (inspirado Panorama) -->
+<section id="nosotros" class="nosotros-section">
+  <div class="nosotros-inner">
+    <div class="nosotros-text">
+      <h2>Cierres de cristal plegable para <strong>terrazas, balcones y quinchos</strong></h2>
+      <p>En ADC SPA contamos con un equipo de profesionales especializados en la instalacion e instalacion de cierres de cristal plegable para todo tipo de espacios. Nuestros expertos tienen formacion tecnica solida y reciben capacitacion continua.</p>
+      <p>Todos nuestros trabajos se realizan cumpliendo con la normativa vigente y las especificaciones tecnicas para garantizar un resultado de excelencia. Incorporamos ingenieria de alto nivel, materiales de primera calidad y soluciones que corrigen las falencias habituales de la industria.</p>
+      <a href="#contacto" class="btn-green" style="margin-top:.5rem">Cotiza gratis hoy</a>
+    </div>
+    <div class="nosotros-img">
+      <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Cierres de cristal ADC SPA">
+    </div>
+  </div>
+</section>
+<!-- DIFERENCIADORES (inspirado Vista Libre) -->
+<section class="diferenciadores">
+  <div class="section-title-block">
+    <h2>Nuestros Diferenciadores</h2>
+    <div class="title-bar"></div>
+  </div>
+  <div class="dif-grid">
+    <div class="dif-item">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/></svg>
+      </div>
+      <h4>El Vidrio que tu Proyecto Necesita</h4>
+      <p>Compatible con cristal templado o laminado segun altura, normativa sismica y control solar.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l5 3"/></svg>
+      </div>
+      <h4>Sistema mas Moderno del Mercado</h4>
+      <p>Distribuye el peso en multiples roldanas superiores e inferiores para un deslizamiento horizontal suave.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12l-4-4M12 12l4-4"/><path d="M4 6h16"/></svg>
+      </div>
+      <h4>Vista Limpia, Sellado Real</h4>
+      <p>Burlete de silicona en forma de V diseñado para aumentar la hermeticidad sin agregar perfiles visibles.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <h4>Seguridad Real en Movimiento</h4>
+      <p>Tapas atornilladas, triple seguridad estructural y diseno anti-descuelgue que mantiene cada hoja fija.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <h4>Disenado para el Clima de Chile</h4>
+      <p>Perfiles con canalizacion interna y tapas con aletas que dirigen el agua al exterior. Menos filtraciones.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h4>Menos Estructura, Mas Vision</h4>
+      <p>Encajes internos y terminaciones minimalistas que reducen la presencia visual de elementos estructurales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SISTEMAS DE CIERRES -->
+<section id="cierres" style="padding:5rem 2rem;background:var(--bg)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-title-block">
+      <h2>Sistemas de Cierres de Cristal</h2>
+      <div class="title-bar"></div>
+    </div>
+    <div class="producto-inner" style="margin-bottom:5rem">
+      <div class="producto-img">
+        <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Cierres de cristal plegables">
+      </div>
+      <div class="producto-info">
+        <h3>Cierres de Cristal Plegables</h3>
+        <p>Sistema de cerramiento usado en terrazas de departamentos, quinchos de casas, para todo espacio donde sea conveniente controlar la interaccion con el entorno. Fabricados bajo estrictos estandares de calidad y con tecnologia europea de excelencia.</p>
+        <ul class="check-list">
+          <li><span class="check-icon">&#10003;</span>Sin perfiles verticales: vision continua de tu terraza o quincho.</li>
+          <li><span class="check-icon">&#10003;</span>Pista deslizante sin rodamientos en Teflon: silencioso, sin riel y sin friccion.</li>
+          <li><span class="check-icon">&#10003;</span>El sistema mas hermetico, seguro y estanco del mercado.</li>
+          <li><span class="check-icon">&#10003;</span>Componentes certificados bajo normativas europeas.</li>
+          <li><span class="check-icon">&#10003;</span>Garantia del sistema de 9 anos.</li>
+        </ul>
+        <a href="#contacto" class="btn-green">Cotiza con Nosotros</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BARANDAS -->
+<section id="barandas" style="padding:5rem 2rem;background:var(--bg2)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="producto-inner" style="margin-bottom:5rem">
+      <div class="producto-info">
+        <h3>Barandas de Cristal</h3>
+        <p>Diseno para espacios modernos y elegantes. Trabajamos con vidrios de seguridad especialmente desarrollados para el cuidado de tu familia, ideales para terrazas, escaleras y piscinas.</p>
+        <ul class="check-list">
+          <li><span class="check-icon">&#10003;</span>Barandas para espacios modernos en terrazas, escaleras y piscinas.</li>
+          <li><span class="check-icon">&#10003;</span>Gran resistencia a impacto y a cambios de temperatura.</li>
+          <li><span class="check-icon">&#10003;</span>Herrajes de acero inoxidable.</li>
+          <li><span class="check-icon">&#10003;</span>No requieren ajustes ni mantenciones programadas.</li>
+          <li><span class="check-icon">&#10003;</span>Garantia de 5 anos.</li>
+        </ul>
+        <a href="#contacto" class="btn-green">Cotiza con Nosotros</a>
+      </div>
+      <div class="producto-img">
+        <img src="assets/css/img/Screenshot_20211112_083935.jpg" alt="Barandas de cristal templado">
+      </div>
+    </div>
+    <div class="producto-inner" id="lucarnas">
+      <div class="producto-img">
+        <img src="assets/css/img/TORRES UNPLSH.jpg" alt="Lucarnas techos de cristal">
+      </div>
+      <div class="producto-info">
+        <h3>Lucarnas (Techos) de Cristal</h3>
+        <p>Experimenta la magia de la elegancia en ADC SPA. Con lucarnas disenadas con precision, podras elegir entre diversas formas y materiales para lograr el ambiente perfecto y dejar entrar la luz natural.</p>
+        <ul class="check-list">
+          <li><span class="check-icon">&#10003;</span>Cristal templado o laminado.</li>
+          <li><span class="check-icon">&#10003;</span>Transparencia del 100%.</li>
+          <li><span class="check-icon">&#10003;</span>Configuracion plana, piramidal, curva y facetada.</li>
+          <li><span class="check-icon">&#10003;</span>Alta resistencia a los golpes.</li>
+          <li><span class="check-icon">&#10003;</span>Confort termico del recinto interior.</li>
+          <li><span class="check-icon">&#10003;</span>Soluciones personalizadas.</li>
+        </ul>
+        <a href="#contacto" class="btn-green">Cotiza con Nosotros</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUESTROS COLORES (inspirado Vista Libre) -->
+<section class="colores-section">
+  <div class="section-title-block">
+    <h2>Nuestros Colores de Perfileria</h2>
+    <div class="title-bar"></div>
+    <p style="color:var(--text-light);margin-top:.75rem;font-size:.93rem">Elige el acabado que mejor se adapta a tu espacio</p>
+  </div>
+  <div class="colores-grid">
+    <div class="color-item">
+      <div class="color-circle" style="background:#1a1a1a"></div>
+      <span>Negro</span>
+    </div>
+    <div class="color-item">
+      <div class="color-circle" style="background:#3c3c3c"></div>
+      <span>Antracita</span>
+    </div>
+    <div class="color-item">
+      <div class="color-circle" style="background:linear-gradient(135deg,#7a4f2c,#a0622b)"></div>
+      <span>Madera</span>
+    </div>
+    <div class="color-item">
+      <div class="color-circle" style="background:#e8e8e8;border:2px solid #ccc"></div>
+      <span>Blanco</span>
+    </div>
+    <div class="color-item">
+      <div class="color-circle" style="background:#9e9e9e"></div>
+      <span>Aluminio Mate</span>
+    </div>
+    <div class="color-item">
+      <div class="color-circle" style="background:#b5a07a"></div>
+      <span>Titanio</span>
+    </div>
+  </div>
+</section>
+<!-- GALERIA -->
+<section id="galeria" style="padding:5rem 2rem;background:var(--bg)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-title-block">
+      <h2>Galeria de Proyectos</h2>
+      <div class="title-bar"></div>
+    </div>
+    <div class="galeria-grid">
+      <div class="galeria-item">
+        <img src="assets/css/img/Screenshot_20211112_083935.jpg" alt="Barandas, Lucarnas, Piscinas, Escaleras">
+        <p>Barandas, Lucarnas (Techos), Piscinas, Escaleras, Puertas de Cristal</p>
+      </div>
+      <div class="galeria-item">
+        <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Cortinas de Cristal Plegables">
+        <p>Cortinas de Cristal Plegables</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTES -->
+<section id="clientes" style="padding:4rem 2rem;background:var(--bg2)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-title-block">
+      <h2>Nuestros Clientes</h2>
+      <div class="title-bar"></div>
+    </div>
+    <div class="clientes-logos">
+      <div class="logo-placeholder">Ejercito de Chile</div>
+      <div class="logo-placeholder">DP World</div>
+      <div class="logo-placeholder">Tribunal Constitucional</div>
+      <div class="logo-placeholder">PacificHydro</div>
+      <div class="logo-placeholder">Clinica Hospital del Profesor</div>
+      <div class="logo-placeholder">ASL Arquitectos</div>
+      <div class="logo-placeholder">Cantagallo</div>
+      <div class="logo-placeholder">Sencorp</div>
+      <div class="logo-placeholder">La Piccola Italia</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (inspirado Panorama) -->
+<section class="faq-section">
+  <div class="section-title-block">
+    <h2>Preguntas Frecuentes</h2>
+    <div class="title-bar"></div>
+    <p style="color:var(--text-light);margin-top:.75rem;font-size:.93rem">Sobre los cierres de cristal plegables</p>
+  </div>
+  <div class="faq-inner">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Que incluye la compra de los cierres para terrazas?
+        <span class="faq-arrow">&#9656;</span>
+      </button>
+      <div class="faq-answer">
+        <p>La compra incluye el sistema completo de cierres de cristal plegables: perfiles de aluminio, vidrios templados certificados, herrajes, sistema de deslizamiento y la instalacion profesional en tu terraza o quincho.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Cual es el precio de un cierre de terraza plegable?
+        <span class="faq-arrow">&#9656;</span>
+      </button>
+      <div class="faq-answer">
+        <p>El precio depende de las dimensiones de tu terraza, el modelo de cristal elegido y el color de perfileria. Te invitamos a solicitar una cotizacion gratuita para recibir un presupuesto personalizado sin compromiso.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        El cierre filtra el agua y tiene estanqueidad?
+        <span class="faq-arrow">&#9656;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Si. Nuestro sistema cuenta con burletes de silicona y perfiles con canalizacion interna que dirigen el agua al exterior, garantizando alta hermeticidad y protegiendote contra el viento y la lluvia.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Soporta vientos fuertes?
+        <span class="faq-arrow">&#9656;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Si. El sistema ADC SPA esta disenado para resistir las condiciones climaticas de Chile, incluyendo vientos fuertes. Los cristales templados y el sistema de seguridad estructural garantizan la estabilidad del conjunto.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Que mantenimiento requiere un cierre de terraza de cristal?
+        <span class="faq-arrow">&#9656;</span>
+      </button>
+      <div class="faq-answer">
+        <p>El mantenimiento es minimo. Basta con limpiar los vidrios con agua y un poco de detergente neutro. El sistema de deslizamiento sin rodamientos en Teflon no requiere ajustes ni mantenciones programadas.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        En que regiones instalan los cierres de cristal?
+        <span class="faq-arrow">&#9656;</span>
+      </button>
+      <div class="faq-answer">
+        <p>Trabajamos principalmente en la Region Metropolitana de Santiago. Contactanos para consultar disponibilidad en tu region y recibir una cotizacion personalizada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-banner-bg"></div>
+  <div class="cta-banner-content">
+    <h2>PONGASE EN CONTACTO CON NOSOTROS</h2>
+    <a href="#contacto" class="btn-outline-white">CONTACTO</a>
+  </div>
+</section>
+
+<!-- CONTACTO (formulario Vista Libre + info ADC) -->
+<section id="contacto" class="contacto-section">
+  <div class="contacto-inner">
+    <div class="contacto-form-wrap">
+      <h2>Quieres saber mas?</h2>
+      <p class="subtitle">Completa tus datos para recibir mas informacion o solicitar una cotizacion</p>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><input type="text" placeholder="Nombre *"></div>
+          <div class="form-group"><input type="text" placeholder="Apellidos *"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><input type="email" placeholder="Correo electronico *"></div>
+          <div class="form-group"><input type="tel" placeholder="Telefono *"></div>
+        </div>
         <div class="form-group">
           <select>
-            <option value="">-- Seleccione un producto --</option>
-            <option>Cierres de Cristal Plegables</option>
-            <option>Barandas de Cristal</option>
-            <option>Lucarnas (Techos) de Cristal</option>
-            <option>Escaleras de Cristal</option>
+            <option value="">Motivo de contacto</option>
+            <option>Cotizacion Cierres de Cristal</option>
+            <option>Cotizacion Barandas</option>
+            <option>Cotizacion Lucarnas</option>
+            <option>Mantencion</option>
+            <option>Informacion general</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select>
+            <option value="">Como se entero de nosotros?</option>
+            <option>Google / Buscador</option>
+            <option>Redes Sociales</option>
+            <option>Recomendacion</option>
+            <option>Publicidad</option>
             <option>Otro</option>
           </select>
         </div>
         <div class="form-group"><textarea placeholder="Mensaje"></textarea></div>
-        <button class="btn-submit" onclick="alert('Gracias! Te contactaremos pronto.')">SOLICITAR COTIZACION</button>
+        <button class="btn-submit" onclick="alert('Gracias! Te contactaremos pronto.')">ENVIAR</button>
       </div>
     </div>
-  </section>
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stats-inner">
-      <div class="stat">
-        <div class="stat-num">+40.000 mt2</div>
-        <div class="stat-lbl">Cierres de Cristal Plegables</div>
+    <div class="contacto-info">
+      <h3>Contactanos y Asesorate</h3>
+      <div class="contacto-info-card">
+        <div class="big-phone">+56 9 4753 3300</div>
+        <p><a href="mailto:contacto@adcspa.cl">contacto@adcspa.cl</a></p>
+        <br>
+        <ul class="features-list">
+          <li>Sistema sin rodamientos: Mas duradero y eficiente</li>
+          <li>Apoyo inferior: Ideal para maxima estabilidad y seguridad</li>
+          <li>Bajo mantenimiento: Disena moderno y funcional</li>
+          <li>Proteccion contra viento y lluvia</li>
+          <li>Vista panoramica sin barreras</li>
+          <li>Disenos a medida para terrazas y quinchos</li>
+        </ul>
       </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">+15.000 mt</div>
-        <div class="stat-lbl">Barandas de Cristal Instaladas</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">+3000</div>
-        <div class="stat-lbl">Proyectos Realizados</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">9 Anos</div>
-        <div class="stat-lbl">Garantia en Perfileria y Sistema</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">Cert.</div>
-        <div class="stat-lbl">Certificacion Europea</div>
-      </div>
+      <p style="font-size:.9rem;color:var(--text-light);line-height:1.7">Cotiza hoy. Transforma tu terraza en un espacio unico y funcional con la calidad garantizada de ADC SPA. Haz realidad tu proyecto con nosotros.</p>
     </div>
   </div>
+</section>
 
-  <!-- SISTEMAS DE CIERRES -->
-  <section id="cierres" style="padding: 5rem 2rem; background: var(--bg);">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div class="section-title-block">
-        <h2>Sistemas de Cierres de Cristal</h2>
-        <div class="title-bar"></div>
-      </div>
-
-      <!-- Producto 1: Cierres Plegables -->
-      <div class="producto-inner" style="margin-bottom:5rem;">
-        <div class="producto-img">
-          <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Cierres de cristal plegables">
-        </div>
-        <div class="producto-info">
-          <h3>Cierres de Cristal Plegables</h3>
-          <p>Sistema de cerramiento usado en terrazas de departamentos, quinchos de casas, para todo espacio donde sea conveniente y/o necesario controlar la interaccion con el entorno. Permitiendo su uso cuando las condiciones climaticas lo requieran, a traves de su apertura total o parcial. Fabricados bajo estrictos estandares de calidad y con tecnologia europea de excelencia.</p>
-          <ul class="check-list">
-            <li><span class="check-icon">&#10003;</span>Nuestro sistema europeo de cortinas de cristal plegables no tiene elementos estructurales o perfiles verticales, permitiendo una vision continua de tu terraza o quincho.</li>
-            <li><span class="check-icon">&#10003;</span>La tecnologia de apoyo inferior utiliza una pista deslizante sin rodamientos para una operacion estable a largo plazo, sin mantencion. Deslizamiento en Teflon: silencioso, sin riel y sin friccion.</li>
-            <li><span class="check-icon">&#10003;</span>Es el sistema mas hermetico, seguro y estanco del mercado.</li>
-            <li><span class="check-icon">&#10003;</span>Todos los componentes del sistema han sido sometidos a estrictas pruebas y certificaciones que cumplen con normativas europeas.</li>
-            <li><span class="check-icon">&#10003;</span>Garantia del sistema de 9 anos.</li>
-          </ul>
-          <a href="#contacto" class="btn-green">Cotiza con Nosotros</a>
-        </div>
-      </div>
+<!-- FOOTER (multi-columna Vista Libre + Panorama) -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>ADC SPA</strong>
+      <span>Arquitectura del Cristal</span>
+      <p>Disenamos e instalamos cierres plegables de cristal con tecnologia avanzada y certificacion europea. Mas de 3.000 proyectos realizados en Chile.</p>
     </div>
-  </section>
-
-  <!-- BARANDAS -->
-  <section id="barandas" style="padding: 5rem 2rem; background: var(--bg2);">
-    <div style="max-width:1100px;margin:0 auto;">
-
-      <!-- Producto 2: Barandas -->
-      <div class="producto-inner" style="margin-bottom:5rem;">
-        <div class="producto-info">
-          <h3>Barandas de Cristal</h3>
-          <p>Diseno para espacios modernos y elegantes, nuestras barandas de cristal son la mejor opcion. Trabajamos con vidrios de seguridad, especialmente desarrollados para el cuidado de tu familia.</p>
-          <ul class="check-list">
-            <li><span class="check-icon">&#10003;</span>Barandas de cristal para espacios modernos y elegantes en terrazas, escaleras y piscinas.</li>
-            <li><span class="check-icon">&#10003;</span>Gran resistencia a impacto y a cambios de temperatura.</li>
-            <li><span class="check-icon">&#10003;</span>Herrajes de acero inoxidable.</li>
-            <li><span class="check-icon">&#10003;</span>No requieren ajustes ni mantenciones programadas.</li>
-            <li><span class="check-icon">&#10003;</span>Garantia de 5 anos.</li>
-          </ul>
-          <a href="#contacto" class="btn-green">Cotiza con Nosotros</a>
-        </div>
-        <div class="producto-img">
-          <img src="assets/css/img/Screenshot_20211112_083935.jpg" alt="Barandas de cristal templado">
-        </div>
-      </div>
-
-      <!-- Producto 3: Lucarnas -->
-      <div class="producto-inner" id="lucarnas">
-        <div class="producto-img">
-          <img src="assets/css/img/TORRES UNPLSH.jpg" alt="Lucarnas techos de cristal">
-        </div>
-        <div class="producto-info">
-          <h3>Lucarnas (Techos) de Cristal</h3>
-          <p>Ven y experimenta la magia de la elegancia en ADC SPA. Con lucarnas disenadas con precision, podras elegir entre diversas formas y materiales para lograr el ambiente perfecto. Deja que el sol entre y que tus suenos tomen forma con nuestras soluciones de calidad superior.</p>
-          <ul class="check-list">
-            <li><span class="check-icon">&#10003;</span>Cristal templado o laminado.</li>
-            <li><span class="check-icon">&#10003;</span>Transparencia del 100%.</li>
-            <li><span class="check-icon">&#10003;</span>De configuracion plana, piramidal, curva y facetada.</li>
-            <li><span class="check-icon">&#10003;</span>Alta resistencia a los golpes.</li>
-            <li><span class="check-icon">&#10003;</span>Confort termico del recinto interior.</li>
-            <li><span class="check-icon">&#10003;</span>Soluciones personalizadas.</li>
-          </ul>
-          <a href="#contacto" class="btn-green">Cotiza con Nosotros</a>
-        </div>
-      </div>
-
+    <div class="footer-col">
+      <h5>Productos</h5>
+      <ul>
+        <li><a href="#cierres">Cierres de Cristal Plegables</a></li>
+        <li><a href="#barandas">Barandas de Cristal</a></li>
+        <li><a href="#lucarnas">Lucarnas (Techos) de Cristal</a></li>
+        <li><a href="#galeria">Galeria de Proyectos</a></li>
+      </ul>
     </div>
-  </section>
-
-  <!-- GALERIA -->
-  <section id="galeria" style="padding:5rem 2rem; background:var(--bg);">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div class="section-title-block">
-        <h2>Galeria de Proyectos</h2>
-        <div class="title-bar"></div>
-      </div>
-      <div class="galeria-grid">
-        <div class="galeria-item">
-          <img src="assets/css/img/Screenshot_20211112_083935.jpg" alt="Barandas, Lucarnas, Piscinas, Escaleras">
-          <p>Barandas, Lucarnas (Techos), Piscinas, Escaleras, Puertas de Cristal</p>
-        </div>
-        <div class="galeria-item">
-          <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Cortinas de Cristal Plegables">
-          <p>Cortinas de Cristal Plegables</p>
-        </div>
-      </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <div class="contact-item"><span>Tel: +56 9 4753 3300</span></div>
+      <div class="contact-item"><span><a href="mailto:contacto@adcspa.cl" style="color:rgba(255,255,255,.55)">contacto@adcspa.cl</a></span></div>
+      <div class="contact-item"><span>Santiago, Chile</span></div>
+      <div class="contact-item" style="margin-top:1rem"><span>Lun - Vie: 9:00 - 18:00 hrs<br>Sab: 10:00 - 14:00 hrs</span></div>
     </div>
-  </section>
+  </div>
+  <div class="footer-bottom">
+    <p><span style="color:rgba(255,255,255,.4)">ADC SPA &mdash; Arquitectura del Cristal</span> &copy; 2025 &mdash; Santiago, Chile &mdash; <a href="tel:+56947533300">+56947533300</a></p>
+  </div>
+</footer>
 
-  <!-- CLIENTES -->
-  <section id="clientes" style="padding:4rem 2rem; background:var(--bg2);">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div class="section-title-block">
-        <h2>Nuestros Clientes</h2>
-        <div class="title-bar"></div>
-      </div>
-      <div class="clientes-logos">
-        <div class="cliente-logo"><div class="logo-placeholder">Ejercito de Chile</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">DP World</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">Tribunal Constitucional</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">PacificHydro</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">Clinica Hospital del Profesor</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">ASL Arquitectos</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">Cantagallo</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">Sencorp</div></div>
-        <div class="cliente-logo"><div class="logo-placeholder">La Piccola Italia</div></div>
-      </div>
-    </div>
-  </section>
+<!-- WHATSAPP -->
+<a class="whatsapp-float" href="https://wa.me/56947533300" target="_blank" title="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
 
-  <!-- CTA BANNER -->
-  <section class="cta-banner">
-    <div class="cta-banner-bg"></div>
-    <div class="cta-banner-content">
-      <h2>PONGASE EN CONTACTO CON NOSOTROS</h2>
-      <a href="#contacto" class="btn-outline-white">CONTACTO</a>
-    </div>
-  </section>
-
-  <!-- CONTACTO INFO -->
-  <section id="contacto" class="contacto-info-section">
-    <div class="contacto-info-inner">
-      <div class="contacto-col">
-        <p class="contacto-cta-text">Cierra tus Espacios con Estilo y Funcionalidad. Descubre los cierres plegables de cristal sin rodamientos de ADC SPA.</p>
-        <p>En ADC SPA, disenamos e instalamos cierres plegables de cristal con tecnologia avanzada:</p>
-        <br>
-        <ul style="list-style:none;">
-          <li style="color:rgba(255,255,255,.75);margin-bottom:.4rem;">&#10003; Sistema sin rodamientos: Mas duradero y eficiente.</li>
-          <li style="color:rgba(255,255,255,.75);margin-bottom:.4rem;">&#10003; Apoyo inferior: Ideal para maxima estabilidad y seguridad.</li>
-          <li style="color:rgba(255,255,255,.75);margin-bottom:.4rem;">&#10003; Bajo mantenimiento: Disena moderno y funcional sin complicaciones.</li>
-        </ul>
-      </div>
-      <div class="contacto-col">
-        <ul style="list-style:none;">
-          <li style="color:rgba(255,255,255,.75);margin-bottom:.5rem;">&#10022; Proteccion contra viento y lluvia.</li>
-          <li style="color:rgba(255,255,255,.75);margin-bottom:.5rem;">&#10022; Vista panoramica sin barreras.</li>
-          <li style="color:rgba(255,255,255,.75);margin-bottom:.5rem;">&#10022; Disenos a medida para terrazas y quinchos.</li>
-        </ul>
-        <br>
-        <p style="color:rgba(255,255,255,.8);">&#161;Cotiza hoy! Transforma tu terraza en un espacio unico y funcional con la calidad garantizada de ADC SPA. Haz realidad tu proyecto con nosotros.</p>
-      </div>
-      <div class="contacto-col">
-        <h4>Contactanos y Asesorate:</h4>
-        <p style="font-size:1.1rem;color:#fff;font-weight:700;">+56947533300</p>
-        <p><a href="mailto:contacto@adcspa.cl" style="color:rgba(255,255,255,.75);">contacto@adcspa.cl</a></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p><span>ADC SPA &mdash; Arquitectura del Cristal</span> &copy; 2024 &mdash; Santiago, Chile &mdash;
-    <a href="tel:+56947533300" style="color:rgba(255,255,255,.5);">+56947533300</a> &mdash;
-    <a href="mailto:contacto@adcspa.cl" style="color:rgba(255,255,255,.5);">contacto@adcspa.cl</a></p>
-  </footer>
-
-  <!-- WHATSAPP -->
-  <a class="whatsapp-float" href="https://wa.me/56947533300" target="_blank" title="WhatsApp">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  </a>
-
+<script>
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const answer = item.querySelector('.faq-answer');
+  const isOpen = answer.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('active'));
+  // open clicked if was closed
+  if (!isOpen) {
+    answer.classList.add('open');
+    btn.classList.add('active');
+  }
+}
+</script>
 </body>
 </html>
