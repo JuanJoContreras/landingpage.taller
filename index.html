@@ -750,13 +750,68 @@ footer{background:#071626;padding:4rem 2rem 1.5rem}
   .colores-grid{gap:1.2rem}
 }
 
+
+/* ===== LOGO IMAGEN NAVBAR ===== */
+.nav-logo-img{height:44px;width:auto;max-width:150px;object-fit:contain;filter:brightness(0) invert(1);display:block}
+/* ===== GALERIA GRID 3 COLUMNAS ===== */
+.galeria-grid-full{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.galeria-item-sm{position:relative;overflow:hidden;border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.galeria-item-sm img{width:100%;height:220px;object-fit:cover;display:block;transition:transform .6s ease}
+.galeria-item-sm:hover img{transform:scale(1.06)}
+.galeria-caption-sm{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(12,35,64,.85) 0%,transparent 100%);padding:1rem .8rem .6rem;transform:translateY(8px);opacity:0;transition:all .4s ease}
+.galeria-item-sm:hover .galeria-caption-sm{transform:translateY(0);opacity:1}
+.galeria-caption-sm p{font-size:.78rem;color:#fff;font-weight:600}
+/* ===== RESPONSIVE MOVIL 480px ===== */
+@media(max-width:480px){
+nav{padding:.7rem 1rem}
+.nav-logo-img{height:34px}
+.nav-logo-text strong{font-size:.95rem}
+.hero-inner{padding:4.5rem 1rem 1.5rem}
+.hero-text h1{font-size:1.75rem;letter-spacing:.5px}
+.hero-text p{font-size:.85rem}
+.hero-btns{flex-direction:column;gap:.7rem}
+.btn-primary,.btn-secondary{justify-content:center;font-size:.8rem;padding:.7rem 1.2rem}
+.hero-mini-stats{gap:.7rem;flex-wrap:wrap}
+.hero-mini-stat .num{font-size:1.2rem}
+.hero-form-wrap{padding:1.2rem}
+.form-row{grid-template-columns:1fr}
+.stats-bar{padding:1.5rem .8rem}
+.stat-num{font-size:1.5rem}
+.beneficios{padding:3rem .8rem}
+.nosotros{padding:3rem .8rem}
+.nosotros-inner{gap:1.5rem}
+.nosotros-img img{height:220px}
+.nosotros-img-badge{right:0;bottom:0}
+.diferenciadores{padding:3rem .8rem}
+.productos{padding:3rem .8rem}
+.productos-bg{padding:3rem .8rem}
+.producto-img img{height:220px}
+.galeria-section{padding:3rem .8rem}
+.galeria-grid-full{grid-template-columns:1fr;gap:.8rem}
+.galeria-item-sm img{height:210px}
+.contacto-section{padding:3rem .8rem}
+.contacto-inner{gap:1.5rem}
+.info-card .phone{font-size:1.3rem}
+.cta-banner{padding:3.5rem .8rem}
+footer{padding:2rem .8rem 1rem}
+.footer-inner{gap:1.5rem}
+.section-head h2{font-size:1.35rem}
+.wa-float{bottom:16px;right:16px;width:50px;height:50px}
+.wa-float svg{width:24px;height:24px}
+.back-top{bottom:76px;right:16px}
+.clientes-logos{gap:.8rem}
+.logo-pill{font-size:.7rem;padding:0 .9rem;height:40px}
+}
+@media(max-width:768px){
+.galeria-grid-full{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
 <!-- NAV -->
 <nav id="navbar">
   <a class="nav-logo" href="#">
-    <div class="nav-logo-icon">ADC</div>
+    <img src="assets/css/img/LOGO 3.png" alt="ADC SPA Logo" class="nav-logo-img">
     <div class="nav-logo-text">
       <strong>ADC</strong>
       <span>Arquitectura del Cristal</span>
@@ -1127,25 +1182,65 @@ footer{background:#071626;padding:4rem 2rem 1.5rem}
     </div>
   </div>
 </section>
-<!-- GALERIA -->
+<!-- GALERIA COMPLETA -->
 <section id="galeria" class="galeria-section">
   <div class="section-head reveal">
     <span class="label">Proyectos</span>
     <h2>Galeria de Proyectos</h2>
+    <p>Conoce algunos de nuestros trabajos realizados en Chile</p>
     <div class="title-line"></div>
   </div>
-  <div class="galeria-grid" style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
-    <div class="galeria-item reveal-left">
-      <img src="assets/css/img/Screenshot_20211112_083935.jpg" alt="Barandas y Lucarnas">
-      <div class="galeria-caption"><p>Barandas, Lucarnas (Techos), Piscinas, Escaleras</p></div>
+  <div class="galeria-grid-full">
+    <div class="galeria-item-sm reveal delay-1">
+      <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Cierre de cristal plegable terraza">
+      <div class="galeria-caption-sm"><p>Cortinas de Cristal Plegables</p></div>
     </div>
-    <div class="galeria-item reveal-right">
-      <img src="assets/css/img/Screenshot_20211111_213802.jpg" alt="Cortinas de Cristal">
-      <div class="galeria-caption"><p>Cortinas de Cristal Plegables</p></div>
+    <div class="galeria-item-sm reveal delay-2">
+      <img src="assets/css/img/Screenshot_20211111_214049.jpg" alt="Cierre cristal proyecto quincho">
+      <div class="galeria-caption-sm"><p>Cierre en Quincho</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-3">
+      <img src="assets/css/img/Screenshot_20211111_214525.jpg" alt="Terraza con cierre de cristal">
+      <div class="galeria-caption-sm"><p>Terraza Residencial</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-1">
+      <img src="assets/css/img/Screenshot_20211112_081508.jpg" alt="Baranda de cristal escalera">
+      <div class="galeria-caption-sm"><p>Barandas de Cristal</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-2">
+      <img src="assets/css/img/Screenshot_20211112_083746.jpg" alt="Lucarna techo de cristal">
+      <div class="galeria-caption-sm"><p>Lucarna (Techo de Cristal)</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-3">
+      <img src="assets/css/img/Screenshot_20211112_083812.jpg" alt="Proyecto residencial cristal">
+      <div class="galeria-caption-sm"><p>Proyecto Residencial</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-1">
+      <img src="assets/css/img/Screenshot_20211112_083829.jpg" alt="Cierre cristal departamento">
+      <div class="galeria-caption-sm"><p>Cierre en Departamento</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-2">
+      <img src="assets/css/img/Screenshot_20211112_083847.jpg" alt="Baranda piscina cristal">
+      <div class="galeria-caption-sm"><p>Baranda de Piscina</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-3">
+      <img src="assets/css/img/Screenshot_20211112_083909.jpg" alt="Escalera vidrio cristal">
+      <div class="galeria-caption-sm"><p>Escalera de Cristal</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-1">
+      <img src="assets/css/img/Screenshot_20211112_083935.jpg" alt="Cierre terraza balcon">
+      <div class="galeria-caption-sm"><p>Terraza y Balcon</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-2">
+      <img src="assets/css/img/TORRES UNPLSH.jpg" alt="Arquitectura cristal edificio">
+      <div class="galeria-caption-sm"><p>Proyecto Corporativo</p></div>
+    </div>
+    <div class="galeria-item-sm reveal delay-3">
+      <img src="assets/css/img/verne-ho-0LAJfSNa-xQ-unsplash WCRISTAL.jpg" alt="Interior cristal diseno">
+      <div class="galeria-caption-sm"><p>Diseno con Cristal</p></div>
     </div>
   </div>
 </section>
-
 <!-- CLIENTES -->
 <section id="clientes" class="clientes-section">
   <div class="section-head reveal">
