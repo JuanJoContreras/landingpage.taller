@@ -494,26 +494,7 @@ nav.scrolled{
 .galeria-item:hover .galeria-caption{transform:translateY(0);opacity:1}
 .galeria-caption p{font-size:.82rem;color:#fff;font-weight:600}
 
-/* ===== CLIENTES ===== */
-.clientes-section{padding:5rem 2rem;background:var(--bg2)}
-.clientes-logos{
-  max-width:1000px;margin:0 auto;
-  display:flex;justify-content:center;align-items:center;
-  flex-wrap:wrap;gap:1.5rem;
-}
-.logo-pill{
-  height:50px;padding:0 1.5rem;
-  display:flex;align-items:center;justify-content:center;
-  background:#fff;border:1.5px solid var(--border);
-  border-radius:30px;font-size:.78rem;font-weight:700;
-  color:var(--text-light);text-align:center;white-space:nowrap;
-  transition:var(--transition);
-}
-.logo-pill:hover{
-  border-color:var(--blue);color:var(--blue);
-  box-shadow:0 4px 16px rgba(26,111,168,.12);
-  transform:translateY(-2px);
-}
+
 
 /* ===== FAQ ===== */
 .faq-section{padding:6rem 2rem;background:#fff}
@@ -804,42 +785,38 @@ footer{padding:2rem .8rem 1rem}
 .wa-float svg{width:24px;height:24px}
 .back-top{bottom:76px;right:16px}
 .clientes-logos{gap:.8rem}
-.logo-pill{font-size:.7rem;padding:0 .9rem;height:40px}
+
 }
 @media(max-width:768px){
 .galeria-grid-full{grid-template-columns:repeat(2,1fr)}
 }
 
-/* ===== LOGOS CLIENTES ===== */
-.clientes-logos{max-width:1100px;margin:0 auto;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:1.5rem}
+
+
+/* ===== CLIENTES LOGOS ===== */
+.clientes-logos{max-width:1100px;margin:0 auto;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:2rem}
 .logo-cliente{
-  height:70px;padding:0 1.5rem;
+  height:80px;width:180px;
   display:flex;align-items:center;justify-content:center;
-  background:#fff;border:1.5px solid var(--border);
+  background:#fff;
   border-radius:12px;
+  padding:.8rem 1.2rem;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
   transition:var(--transition);
-  min-width:130px;max-width:200px;
 }
 .logo-cliente img{
-  max-height:50px;max-width:160px;
+  max-height:55px;max-width:150px;
   width:auto;height:auto;
   object-fit:contain;
-  filter:grayscale(100%);
-  opacity:.7;
-  transition:var(--transition);
+  display:block;
 }
 .logo-cliente:hover{
-  border-color:var(--blue);
-  box-shadow:0 4px 16px rgba(26,111,168,.12);
-  transform:translateY(-2px);
+  transform:translateY(-4px);
+  box-shadow:0 6px 20px rgba(0,0,0,.13);
 }
-.logo-cliente:hover img{
-  filter:grayscale(0%);
-  opacity:1;
-}
-@media(max-width:480px){
-  .logo-cliente{height:55px;padding:0 .8rem;min-width:100px}
-  .logo-cliente img{max-height:38px;max-width:120px}
+@media(max-width:600px){
+  .logo-cliente{height:65px;width:140px;padding:.6rem .8rem}
+  .logo-cliente img{max-height:42px;max-width:115px}
 }
 </style>
 </head>
@@ -1298,15 +1275,20 @@ footer{padding:2rem .8rem 1rem}
       <div class="logo-cliente reveal delay-2"><img src="assets/img/clientes/uno-desarrollos.png" alt="UNO Desarrollos Constructivos"></div>
       <div class="logo-cliente reveal delay-3"><img src="assets/img/clientes/serviper.png" alt="Serviper"></div>
     </div>
-    <div class="logo-pill reveal delay-1">DP World</div>
-    <div class="logo-pill reveal delay-2">Tribunal Constitucional</div>
-    <div class="logo-pill reveal delay-2">PacificHydro</div>
-    <div class="logo-pill reveal delay-3">Clinica Hospital del Profesor</div>
-    <div class="logo-pill reveal delay-3">ASL Arquitectos</div>
-    <div class="logo-pill reveal delay-4">Cantagallo</div>
-    <div class="logo-pill reveal delay-4">Sencorp</div>
-    <div class="logo-pill reveal delay-5">La Piccola Italia</div>
-  </div>
+      <div class="logo-cliente reveal delay-1"><img src="assets/img/clientes/dp-world.png" alt="DP World"></div>
+      <div class="logo-cliente reveal delay-2"><img src="assets/img/clientes/tribunal-constitucional.png" alt="Tribunal Constitucional Chile"></div>
+      <div class="logo-cliente reveal delay-2"><img src="assets/img/clientes/pacific-hydro.png" alt="PacificHydro"></div>
+      <div class="logo-cliente reveal delay-3"><img src="assets/img/clientes/clinica-hospital-profesor.png" alt="Clinica Hospital del Profesor"></div>
+      <div class="logo-cliente reveal delay-3"><img src="assets/img/clientes/asl-arquitectos.png" alt="ASL Arquitectos"></div>
+      <div class="logo-cliente reveal delay-4"><img src="assets/img/clientes/cantagallo.png" alt="Cantagallo"></div>
+      <div class="logo-cliente reveal delay-4"><img src="assets/img/clientes/sencorp.png" alt="Sencorp"></div>
+      <div class="logo-cliente reveal delay-5"><img src="assets/img/clientes/la-piccola-italia.png" alt="La Piccola Italia"></div>
+      <div class="logo-cliente reveal delay-5"><img src="assets/img/clientes/constructora-del-sur.png" alt="Constructora del Sur"></div>
+      <div class="logo-cliente reveal delay-1"><img src="assets/img/clientes/inmobiliaria-arboleda.png" alt="Inmobiliaria Arboleda"></div>
+      <div class="logo-cliente reveal delay-2"><img src="assets/img/clientes/uno-desarrollos.png" alt="UNO Desarrollos Constructivos"></div>
+      <div class="logo-cliente reveal delay-3"><img src="assets/img/clientes/serviper.png" alt="Serviper"></div>
+    </div>
+                                  </div>
 </section>
 
 <!-- FAQ -->
