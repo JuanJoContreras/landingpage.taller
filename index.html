@@ -809,6 +809,38 @@ footer{padding:2rem .8rem 1rem}
 @media(max-width:768px){
 .galeria-grid-full{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ===== LOGOS CLIENTES ===== */
+.clientes-logos{max-width:1100px;margin:0 auto;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.logo-cliente{
+  height:70px;padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:center;
+  background:#fff;border:1.5px solid var(--border);
+  border-radius:12px;
+  transition:var(--transition);
+  min-width:130px;max-width:200px;
+}
+.logo-cliente img{
+  max-height:50px;max-width:160px;
+  width:auto;height:auto;
+  object-fit:contain;
+  filter:grayscale(100%);
+  opacity:.7;
+  transition:var(--transition);
+}
+.logo-cliente:hover{
+  border-color:var(--blue);
+  box-shadow:0 4px 16px rgba(26,111,168,.12);
+  transform:translateY(-2px);
+}
+.logo-cliente:hover img{
+  filter:grayscale(0%);
+  opacity:1;
+}
+@media(max-width:480px){
+  .logo-cliente{height:55px;padding:0 .8rem;min-width:100px}
+  .logo-cliente img{max-height:38px;max-width:120px}
+}
 </style>
 </head>
 <body>
@@ -1252,7 +1284,20 @@ footer{padding:2rem .8rem 1rem}
     <div class="title-line"></div>
   </div>
   <div class="clientes-logos">
-    <div class="logo-pill reveal delay-1">Ejercito de Chile</div>
+      <div class="logo-cliente reveal delay-1"><img src="assets/img/clientes/ejercito-chile.png" alt="Ejercito de Chile"></div>
+      <div class="logo-cliente reveal delay-1"><img src="assets/img/clientes/dp-world.png" alt="DP World"></div>
+      <div class="logo-cliente reveal delay-2"><img src="assets/img/clientes/tribunal-constitucional.png" alt="Tribunal Constitucional Chile"></div>
+      <div class="logo-cliente reveal delay-2"><img src="assets/img/clientes/pacific-hydro.png" alt="PacificHydro"></div>
+      <div class="logo-cliente reveal delay-3"><img src="assets/img/clientes/clinica-hospital-profesor.png" alt="Clinica Hospital del Profesor"></div>
+      <div class="logo-cliente reveal delay-3"><img src="assets/img/clientes/asl-arquitectos.png" alt="ASL Arquitectos"></div>
+      <div class="logo-cliente reveal delay-4"><img src="assets/img/clientes/cantagallo.png" alt="Cantagallo"></div>
+      <div class="logo-cliente reveal delay-4"><img src="assets/img/clientes/sencorp.png" alt="Sencorp"></div>
+      <div class="logo-cliente reveal delay-5"><img src="assets/img/clientes/la-piccola-italia.png" alt="La Piccola Italia"></div>
+      <div class="logo-cliente reveal delay-5"><img src="assets/img/clientes/constructora-del-sur.png" alt="Constructora del Sur"></div>
+      <div class="logo-cliente reveal delay-1"><img src="assets/img/clientes/inmobiliaria-arboleda.png" alt="Inmobiliaria Arboleda"></div>
+      <div class="logo-cliente reveal delay-2"><img src="assets/img/clientes/uno-desarrollos.png" alt="UNO Desarrollos Constructivos"></div>
+      <div class="logo-cliente reveal delay-3"><img src="assets/img/clientes/serviper.png" alt="Serviper"></div>
+    </div>
     <div class="logo-pill reveal delay-1">DP World</div>
     <div class="logo-pill reveal delay-2">Tribunal Constitucional</div>
     <div class="logo-pill reveal delay-2">PacificHydro</div>
